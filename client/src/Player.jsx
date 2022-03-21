@@ -8,7 +8,7 @@ import SpotifyPlayer from "react-spotify-web-playback"
 
 const Player = ({ accessToken, trackUri }) => {
     const [play, setPlay] = useState(false)
-//useEffect sets state value play to true if track URI is present, automatically plays song we select.
+//useEffect sets state value play to true if track URI is present, automatically
     useEffect(() => {
         setPlay(true)
     }, [trackUri])
