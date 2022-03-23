@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react"
-import useAuth from "./hooks/useAuth"
-import Player from "./Player"
-import TrackSearchResults from "./TrackSearchResults"
-import SpotifyWebApi from "spotify-web-api-node"
-import axios from "axios"
+import React, { useState, useEffect } from "react";
+import useAuth from "./hooks/useAuth";
+import Player from "./Player";
+import TrackSearchResults from "./TrackSearchResults";
+import SpotifyWebApi from "spotify-web-api-node";
+import axios from "axios";
 import {
     DashBoardContainer,
     SearchInput,
     ResultsContainer,
     LyricsContainer,
     PlayerContainer,
-} from "./styles/Dashboard.styles"
+} from "./styles/Dashboard.styles";
 
 const spotifyApi = new SpotifyWebApi({
     clientid: process.env.REACT_APP_CLIENT_ID,
@@ -28,8 +28,9 @@ const Dashboard = ({ code }) => {
         setPlayingTrack(track)
         setSearch("")
         setLyrics("")
-    }
+    };
 //first hook triggers based on changes in playingtrack state, uses this states value to fetch lyrics
+//reactdocs lookup for function**
     useEffect(() => {
         if(!playingTrack) return
         (async () => {
@@ -40,16 +41,16 @@ const Dashboard = ({ code }) => {
                     track: playingTrack.title,
                     artist: playingTrack.artist,
                 },
-            })
+            });
             setLyrics(lyrics)
-        })()
+        })();
     }, [playingTrack])
 //second hook triggers with changes to accesstoken state ensures validity of accesstoken value 
     useEffect(() => {
         if(!accessToken) return
         spotifyApi.setAccessToken(accessToken)
         //initialized from spotifywebapi, required to use respective functions to fetch songs.
-    }, [accessToken])
+    }, [accessToken]);
 //third hook triggers with changes to accesstoken in search state, if they are both truthy values
 //it will trigger the async function for spotify api to search tracks, uses search state as an argument which will fetch all songs and artists matching the value,
 //responds with an array of values.
@@ -82,7 +83,7 @@ const Dashboard = ({ code }) => {
         })();
 
         return () => (cancel = true)
-    }, [search, accessToken])
+    }, [search, accessToken]);
 
     return (
         <DashBoardContainer>
@@ -110,6 +111,6 @@ const Dashboard = ({ code }) => {
         </DashBoardContainer>
     )
 
-}
+};
 
-export default Dashboard
+export default Dashboard;
